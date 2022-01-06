@@ -1,0 +1,32 @@
+<html>
+
+
+    <head>
+
+        <title>New Page</title>
+        <link rel="stylesheet" href="NewPage.css">
+
+    </head>
+
+    <body>
+        {% csrf token %}
+        <form action="\wiki\entries\" method="POST">
+
+            <div id="Title">
+            <input type="text", value="Title">
+            </div>
+*
+            <div id="Content">
+            <input type="text", value="Content">
+            </div>
+
+            <div id="Submit">
+            <input type="submit"> 
+            </div>
+
+        </form>
+
+    </body>
+
+
+</html>
