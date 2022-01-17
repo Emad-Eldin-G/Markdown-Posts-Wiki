@@ -1,0 +1,22 @@
+{% extends "encyclopedia/layout.html" %}
+
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+
+{% block body %}
+<h1>Your Search  " {{Searchq}} " matches with:</h1>
+
+<ul>
+
+
+        {% for entry in entries %}
+        <li> <a href="{% url 'encyclopedia:EntryPage' entry %}"> {{ entry }} </a> </li>
+        {% endfor %}
+    
+</ul>
+{% endblock %}
+
+

@@ -12,17 +12,27 @@
         <div class="row">
             <div class="sidebar col-lg-2 col-md-3">
                 <h2>Wiki</h2>
-                <form>
-                    <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
-                </form>
+
                 <div>
+                <form method="POST">
+
+                    <!--  search bar  -->
+                    {% csrf_token %}
+                    {{ searchform }}
+
+
+                </form>
+                </div>
+
+                <div>
+                    <!-- url reversing we use <app_name then url_name> -->
                     <a href="{% url 'encyclopedia:index' %}">Home</a>
                 </div>
                 <div>
                     <a href="{% url 'encyclopedia:NewPage' %}"> Create New Page </a>
                 </div>
                 <div>
-                    Random Page
+                    <a href="{% url 'encyclopedia:RandomEntry' %}">Random Page</a> 
                 </div>
                 {% block nav %}
                 {% endblock %}

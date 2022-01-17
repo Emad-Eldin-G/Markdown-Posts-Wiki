@@ -1,0 +1,35 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Edit Entry
+{% endblock %}
+
+{% block body %}
+
+   <form action="" method="POST">
+
+    {% csrf_token %}
+
+
+    <div>
+
+        <input type="text" value="{{title}}" name="TITLE">
+
+    </div>    
+    
+    <div>
+
+        <input style="height: 200px; width: 1200px;" type="text" value="{{body}}" name="BODY">
+
+    </div>
+
+    <div>
+
+        <input type="submit">
+
+    </div>
+
+
+
+   </form>
+{% endblock %}

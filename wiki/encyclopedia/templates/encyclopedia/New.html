@@ -6,13 +6,16 @@
 
 {% block body %}
 
-    <form action="/new_entry/" method="POST">
+<div>
+    <form action="/new" method="POST">
 
         {% csrf_token %}
+
         {{form}}
+
         <input type="submit" value="Submit">
 
     </form>
-
+</div>
 
 {% endblock %}

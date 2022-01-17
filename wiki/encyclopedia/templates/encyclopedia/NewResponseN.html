@@ -1,13 +1,13 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    {{title}}
+    Encyclopedia
 {% endblock %}
 
 {% block body %}
 
-    {{body | safe}}
+    <h2>{{title}} already exists!</h2>
+    <p>Try again...</p>
 
-    <p><a href="{{ request.path }}/edit">Edit</a></p>
 
 {% endblock %}
