@@ -11,7 +11,15 @@
 
         {% csrf_token %}
 
-        {{form}}
+        <div>
+        <label for="">Title</label>
+        {{form.title}}
+        </div>
+
+        <div>
+        <label for="">Body</label>
+        {{form.body}}
+        </div>
 
         <input type="submit" value="Submit">
 
