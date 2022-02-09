@@ -11,7 +11,7 @@ from . import util
 #Form <input>s for the new_page function
 class create_new(forms.Form):
     title = forms.CharField(label="Title", max_length=30)
-    body = forms.CharField(label="Body", max_length=500)
+    body = forms.Textarea()
 
 
 class search_bar(forms.Form):
@@ -29,43 +29,8 @@ def index(request):
 
     entries= util.list_entries()
 
-    form = search_bar(request.POST)
     entries= util.list_entries()
-
-    if request.method == "POST":
-        form = search_bar(request.POST)
- 
-        if form.is_valid():
-
-            results = []
-            search = form.cleaned_data["bar"]
-            search = str(search)
-
-            if search != "":
-
-                for entry in entries:
-
-                    if search == entry:
-                        return HttpResponseRedirect('/wiki/' + entry)
-
-                    if search.lower() in entry.lower():
-                        results.append(entry)
-
-                if results != []:
-                    return render(request, "encyclopedia/SearchResults.html", {'entries': results, 
-                    "Searchq": search,
-                    'searchform': form}) 
-
-
-
-            else:
-                return render(request, "encyclopedia/index.html", {
-                "entries": util.list_entries(),
-                'searchform': form
-                })
-
-
-
+    form = search_bar(request.POST)
 
 
     return render(request, "encyclopedia/index.html", {
@@ -87,38 +52,6 @@ def entry(request, entry):
     form = search_bar(request.POST)
     entries= util.list_entries()
 
-    if request.method == "POST":
-        form = search_bar(request.POST)
- 
-        if form.is_valid():
-
-            results = []
-            search = form.cleaned_data["bar"]
-            search = str(search)
-
-            if search != "":
-
-                for entry in entries:
-
-                    if search == entry:
-                        return HttpResponseRedirect('/wiki/' + entry)
-
-                    if search.lower() in entry.lower():
-                        results.append(entry)
-
-                if results != []:
-                    return render(request, "encyclopedia/SearchResults.html", {'entries': results, 
-                    "Searchq": search,
-                    'searchform': form}) 
-
-
-
-            else:
-                return render(request, "encyclopedia/index.html", {
-                "entries": util.list_entries(),
-                'searchform': form
-                })
-
 
     return render(request, "encyclopedia/EntryPage.html", {
         "body": body,
@@ -135,38 +68,6 @@ def edit(request, entry):
 
     form = search_bar(request.POST)
     entries= util.list_entries()
-
-    if request.method == "POST":
-        form = search_bar(request.POST)
- 
-        if form.is_valid():
-
-            results = []
-            search = form.cleaned_data["bar"]
-            search = str(search)
-
-            if search != "":
-
-                for entry in entries:
-
-                    if search == entry:
-                        return HttpResponseRedirect('/wiki/' + entry)
-
-                    if search.lower() in entry.lower():
-                        results.append(entry)
-
-                if results != []:
-                    return render(request, "encyclopedia/SearchResults.html", {'entries': results, 
-                    "Searchq": search,
-                    'searchform': form}) 
-
-
-
-            else:
-                return render(request, "encyclopedia/index.html", {
-                "entries": util.list_entries(),
-                'searchform': form
-                })
 
     if request.method == "POST":
 
@@ -203,7 +104,7 @@ def new_page(request):
 
     form = create_new(request.POST)
     entries= util.list_entries()
-    
+
     
     if request.method == "POST":
         form = create_new(request.POST)
@@ -211,7 +112,7 @@ def new_page(request):
 
         if form.is_valid():
             title = form.cleaned_data["title"]
-            body = form.cleaned_data["body"]
+            body = request.POST["body"]
 
             for entry in entries:
 
@@ -233,7 +134,40 @@ def new_page(request):
         else:
             return HttpResponse("Please try again")
     
+    
     return render(request, 'encyclopedia/New.html', {'form': form})
+
+#--------------------------------------------------------------------
+
+def search(request):
+
+    entries= util.list_entries()
+    if request.method == "POST":
+
+        results = []
+        search = request.POST["Search"]
+        search = str(search)
+
+        if search != "":
+
+            for entry in entries:
+
+                if search == entry:
+                    return HttpResponseRedirect('/wiki/' + entry)
+
+                if search.lower() in entry.lower():
+                    results.append(entry)
+
+            if results != []:
+                return render(request, "encyclopedia/SearchResults.html", {'entries': results, 
+                "Searchq": search,
+                }) 
+
+      
+    return render(request, "encyclopedia/index.html", {
+    "entries": util.list_entries(),
+    })
+
 
 
 

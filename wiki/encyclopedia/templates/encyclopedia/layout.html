@@ -14,11 +14,11 @@
                 <h2>Wiki</h2>
 
                 <div>
-                <form method="POST">
+                <form action="{% url 'encyclopedia:Search' %}" method="POST">
 
                     <!--  search bar  -->
                     {% csrf_token %}
-                    {{ searchform }}
+                    <input type="text" name="Search" id="Search" placeholder="Search">
 
 
                 </form>
